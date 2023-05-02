@@ -97,7 +97,6 @@ describe('구조 분해 할당(Destructuring Assignment)에 관해서', () => {
     }
 
     expect(changedUser).to.eql({
-      name: '박해커',
       company: {
         name: 'Code States',
         department: 'Development',
@@ -105,6 +104,7 @@ describe('구조 분해 할당(Destructuring Assignment)에 관해서', () => {
           name: 'Software Engineer'
         }
       },
+      name: '박해커',
       age: 20
     })
 
