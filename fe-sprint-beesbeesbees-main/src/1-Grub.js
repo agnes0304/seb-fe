@@ -1,9 +1,9 @@
 class Grub {
   // TODO..
-  constructor () {
+  constructor (food) {
     this.age = 0;
     this.color = 'pink';
-    this.food = 'jelly';
+    this.food = food;
   }
   eat () {
     return 'Mmmmmmmmm jelly';
