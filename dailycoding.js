@@ -30,4 +30,11 @@ function powerOfTwo(num) {
   return flag;
 }
 
-console.log(powerOfTwo(36028797018964));
+
+// 짝수처리 하는 부분이 간결함
+// let powered = 2;
+// while (powered < num) {
+//   powered = powered * 2;
+// }
+
+// return powered === num;
