@@ -345,22 +345,22 @@ _.pluck = function (arr, keyOrIdx) {
 //         // 2 + 3 * 3 = 11; (첫 작업의 결과가 누적되어 다음 작업으로 전달됩니다.)
 //         // 11 + 5 * 5 = 36; (마지막 작업이므로 최종적으로 36이 리턴됩니다.)
 _.reduce = function (arr, iteratee, initVal) {
-  // let acc = initVal;
-  // _.each(arr, function(el, idx, list){
-  //   if (idx === 0 && !acc){
-  //     acc = el;
-  //   } else {
-  //     acc= iteratee(acc, el, idx, list);
-  //   }
-  // })
-  // return acc;
   let acc = initVal;
   _.each(arr, function(el, idx, list){
-    if (idx === 0 && acc===undefined){
+    if (idx === 0 && !acc && acc !== 0){
       acc = el;
     } else {
       acc= iteratee(acc, el, idx, list);
     }
   })
   return acc;
+  // let acc = initVal;
+  // _.each(arr, function(el, idx, list){
+  //   if (idx === 0 && acc===undefined){
+  //     acc = el;
+  //   } else {
+  //     acc= iteratee(acc, el, idx, list);
+  //   }
+  // })
+  // return acc;
 };
