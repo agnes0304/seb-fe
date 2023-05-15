@@ -177,7 +177,7 @@ _.each = function (collection, iteratee) {
   if (Array.isArray(collection)) {
     for (let i = 0; i < collection.length; i++) {
       iteratee(collection[i], i, collection);
-    };
+    }
   } else {
     for (let key in collection) {
       iteratee(collection[key], key, collection);
@@ -219,36 +219,43 @@ _.filter = function (arr, test) {
   // return result;
   // pass는 했는데 each 써야 된대.
   let result = [];
-  _.each(arr, function(el){
-    if(test(el)){
+  _.each(arr, function (el) {
+    if (test(el)) {
       result.push(el);
-    };
-  })
+    }
+  });
   return result;
 };
 
 // _.reject는 _.filter와 정반대로 test 함수를 통과하지 않는 모든 요소를 담은 새로운 배열을 리턴합니다.
 _.reject = function (arr, test) {
   let result = [];
-  _.each(arr, function(el){
-    if(!test(el)){
+  _.each(arr, function (el) {
+    if (!test(el)) {
       result.push(el);
-    };
-  })
+    }
+  });
   return result;
 };
 
 // _.uniq는 주어진 배열의 요소가 중복되지 않도록 새로운 배열을 리턴합니다.
 // 중복 여부의 판단은 엄격한 동치 연산(strict equality, ===)을 사용해야 합니다.
 // 입력으로 전달되는 배열의 요소는 모두 primitive value라고 가정합니다.
+
+// indexOf: 배열에서의 위치를 리턴, 중복되는 경우 작은 인덱스만 리턴, 없으면 -1리턴. 
 _.uniq = function (arr) {
   let result = [];
-  // 함수에 배열 요소 중복 여부판단하는거 넣으면 됨.
-  _.each(arr, function(el){
-    
-  })
+  // 함수에 배열 요소 중복 여부 판단하는거 넣으면 됨.
+  _.each(arr, function (el) {
+    let checker = _.indexOf(result, el);
+    if (checker === -1){
+      result.push(el)
+    }
+  });
   return result;
 };
+
+
 
 // _.map은 iteratee(반복되는 작업)를 배열의 각 요소에 적용(apply)한 결과를 담은 새로운 배열을 리턴합니다.
 // 함수의 이름에서 드러나듯이 _.map은 배열의 각 요소를 다른 것(iteratee의 결과)으로 매핑(mapping)합니다.
@@ -261,9 +268,9 @@ _.map = function (arr, iteratee) {
 
   // 위에 꺼도 되는데 _.each써야 된대.
   let result = [];
-  _.each(arr, function(el){
+  _.each(arr, function (el) {
     result.push(iteratee(el));
-  })
+  });
   return result;
 };
 
@@ -284,9 +291,9 @@ _.pluck = function (arr, keyOrIdx) {
   // _.pluck은 _.map을 사용해 구현하시기 바랍니다.
 
   // return 안 써서 틀림. _.map이 새로운 배열을 리턴하는거니까 거기서 나온 배열을 다시 리턴해줘야 함.
-  return _.map(arr, function(el){
+  return _.map(arr, function (el) {
     return el[keyOrIdx];
-  })
+  });
 };
 
 // _.reduce는
@@ -338,6 +345,22 @@ _.pluck = function (arr, keyOrIdx) {
 //         // 2 + 3 * 3 = 11; (첫 작업의 결과가 누적되어 다음 작업으로 전달됩니다.)
 //         // 11 + 5 * 5 = 36; (마지막 작업이므로 최종적으로 36이 리턴됩니다.)
 _.reduce = function (arr, iteratee, initVal) {
-  // each 써야 함. 
-  
+  // let acc = initVal;
+  // _.each(arr, function(el, idx, list){
+  //   if (idx === 0 && !acc){
+  //     acc = el;
+  //   } else {
+  //     acc= iteratee(acc, el, idx, list);
+  //   }
+  // })
+  // return acc;
+  let acc = initVal;
+  _.each(arr, function(el, idx, list){
+    if (idx === 0 && acc===undefined){
+      acc = el;
+    } else {
+      acc= iteratee(acc, el, idx, list);
+    }
+  })
+  return acc;
 };
