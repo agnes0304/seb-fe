@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /**
  * underbar 스프린트에 오신 것을 환영합니다!
@@ -10,6 +10,7 @@
 // _.identity는 전달인자(argument)가 무엇이든, 그대로 리턴합니다.
 // 이 함수는 underbar의 기능 구현 및 테스트를 위해 재사용되는 함수입니다.
 _.identity = function (val) {
+  return val;
   // TODO: 여기에 코드를 작성합니다.
 };
 
@@ -111,14 +112,25 @@ _.slice = function (arr, start, end) {
 // n이 undefined이거나 음수인 경우, 빈 배열을 리턴합니다.
 // n이 배열의 길이를 벗어날 경우, 전체 배열을 shallow copy한 새로운 배열을 리턴합니다.
 _.take = function (arr, n) {
-  // TODO: 여기에 코드를 작성합니다.
+  if (!n) {
+    return [];
+  } else {
+    return _.slice(arr, 0, n);
+  }
+  // if (!n) {return []}
+  // else if(n > arr.length) {
+  //   return arr.slice();
+  // } else {
+  //   let result = arr.slice(0,n);
+  //   return result;
+  // }
 };
 
 // _.drop는 _.take와는 반대로, 처음 n개의 element를 제외한 새로운 배열을 리턴합니다.
 // n이 undefined이거나 음수인 경우, 전체 배열을 shallow copy한 새로운 배열을 리턴합니다.
 // n이 배열의 길이를 벗어날 경우, 빈 배열을 리턴합니다.
 _.drop = function (arr, n) {
-  // TODO: 여기에 코드를 작성합니다.
+  return _.slice(arr, n);
 };
 
 // _.last는 배열의 마지막 n개의 element를 담은 새로운 배열을 리턴합니다.
@@ -126,7 +138,10 @@ _.drop = function (arr, n) {
 // n이 배열의 길이를 벗어날 경우, 전체 배열을 shallow copy한 새로운 배열을 리턴합니다.
 // _.take와 _.drop 중 일부 또는 전부를 활용할 수 있습니다.
 _.last = function (arr, n) {
-  // TODO: 여기에 코드를 작성합니다.
+  if (n === 0) {
+    return [];
+  }
+  return n ? _.slice(arr, -n) : _.slice(arr, -1);
 };
 
 // _.each는 collection의 각 데이터에 반복적인 작업을 수행합니다.
@@ -159,7 +174,15 @@ _.last = function (arr, n) {
 
 // _.each는 명시적으로 어떤 값을 리턴하지 않습니다.
 _.each = function (collection, iteratee) {
-  // TODO: 여기에 코드를 작성합니다.
+  if (typeof collection === "object") {
+    for (let key in collection) {
+      iteratee(collection[key]);
+    }
+  } else {
+    for (let i = 0; i < collection.length; i++) {
+      iteratee(collection[i]);
+    }
+  }
 };
 
 // _.indexOf는 target으로 전달되는 값이 arr의 요소인 경우, 배열에서의 위치(index)를 리턴합니다.
