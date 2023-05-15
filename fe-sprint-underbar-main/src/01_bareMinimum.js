@@ -174,15 +174,18 @@ _.last = function (arr, n) {
 
 // _.each는 명시적으로 어떤 값을 리턴하지 않습니다.
 _.each = function (collection, iteratee) {
-  if (typeof collection === "object") {
-    for (let key in collection) {
-      iteratee(collection[key]);
-    }
-  } else {
+  if (Array.isArray(collection)) {
     for (let i = 0; i < collection.length; i++) {
-      iteratee(collection[i]);
+      iteratee(collection[i], i, collection);
+    };
+  } else {
+    for (let key in collection) {
+      iteratee(collection[key], key, collection);
     }
   }
+  // 배열 arr을 입력받을 경우, iteratee(ele, idx, arr)
+  // 객체 obj를 입력받을 경우, iteratee(val, key, obj)
+  // 이 두 가지 부분을 안봐서 계속 fail이 떴음
 };
 
 // _.indexOf는 target으로 전달되는 값이 arr의 요소인 경우, 배열에서의 위치(index)를 리턴합니다.
@@ -207,27 +210,61 @@ _.indexOf = function (arr, target) {
 // test(element)의 결과(return 값)가 truthy일 경우, 통과입니다.
 // test 함수는 각 요소에 반복 적용됩니다.
 _.filter = function (arr, test) {
-  // TODO: 여기에 코드를 작성합니다.
+  // let result = [];
+  // for (let i = 0; i < arr.length; i++) {
+  //   if (test(arr[i])) {
+  //     result.push(arr[i]);
+  //   }
+  // }
+  // return result;
+  // pass는 했는데 each 써야 된대.
+  let result = [];
+  _.each(arr, function(el){
+    if(test(el)){
+      result.push(el);
+    };
+  })
+  return result;
 };
 
 // _.reject는 _.filter와 정반대로 test 함수를 통과하지 않는 모든 요소를 담은 새로운 배열을 리턴합니다.
 _.reject = function (arr, test) {
-  // TODO: 여기에 코드를 작성합니다.
+  let result = [];
+  _.each(arr, function(el){
+    if(!test(el)){
+      result.push(el);
+    };
+  })
+  return result;
 };
 
 // _.uniq는 주어진 배열의 요소가 중복되지 않도록 새로운 배열을 리턴합니다.
 // 중복 여부의 판단은 엄격한 동치 연산(strict equality, ===)을 사용해야 합니다.
 // 입력으로 전달되는 배열의 요소는 모두 primitive value라고 가정합니다.
 _.uniq = function (arr) {
-  // TODO: 여기에 코드를 작성합니다.
+  let result = [];
+  // 함수에 배열 요소 중복 여부판단하는거 넣으면 됨.
+  _.each(arr, function(el){
+    
+  })
+  return result;
 };
 
 // _.map은 iteratee(반복되는 작업)를 배열의 각 요소에 적용(apply)한 결과를 담은 새로운 배열을 리턴합니다.
 // 함수의 이름에서 드러나듯이 _.map은 배열의 각 요소를 다른 것(iteratee의 결과)으로 매핑(mapping)합니다.
 _.map = function (arr, iteratee) {
-  // TODO: 여기에 코드를 작성합니다.
-  // _.map 함수는 매우 자주 사용됩니다.
-  // _.each 함수와 비슷하게 동작하지만, 각 요소에 iteratee를 적용한 결과를 리턴합니다.
+  // let result = [];
+  // for (let i =0; i< arr.length; i++){
+  //   result.push(iteratee(arr[i]));
+  // }
+  // return result;
+
+  // 위에 꺼도 되는데 _.each써야 된대.
+  let result = [];
+  _.each(arr, function(el){
+    result.push(iteratee(el));
+  })
+  return result;
 };
 
 // _.pluck은
@@ -245,7 +282,11 @@ _.pluck = function (arr, keyOrIdx) {
   // });
   // return result;
   // _.pluck은 _.map을 사용해 구현하시기 바랍니다.
-  // TODO: 여기에 코드를 작성합니다.
+
+  // return 안 써서 틀림. _.map이 새로운 배열을 리턴하는거니까 거기서 나온 배열을 다시 리턴해줘야 함.
+  return _.map(arr, function(el){
+    return el[keyOrIdx];
+  })
 };
 
 // _.reduce는
@@ -297,5 +338,6 @@ _.pluck = function (arr, keyOrIdx) {
 //         // 2 + 3 * 3 = 11; (첫 작업의 결과가 누적되어 다음 작업으로 전달됩니다.)
 //         // 11 + 5 * 5 = 36; (마지막 작업이므로 최종적으로 36이 리턴됩니다.)
 _.reduce = function (arr, iteratee, initVal) {
-  // TODO: 여기에 코드를 작성합니다.
+  // each 써야 함. 
+  
 };
