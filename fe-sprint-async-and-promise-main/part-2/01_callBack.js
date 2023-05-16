@@ -11,7 +11,7 @@ const getDataFromFile = function (filePath, callback) {
   });
 };
 
-getDataFromFile('README.md', (err, data) => console.log(data));
+// getDataFromFile('README.md', (err, data) => console.log(data));
 
 module.exports = {
   getDataFromFile
