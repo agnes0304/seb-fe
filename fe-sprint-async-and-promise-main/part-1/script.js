@@ -26,18 +26,38 @@ function runCallback() {
   });
 }
 
+// function runPromise() {
+//   resetTitle();
+//   playVideo();
+
+//   sleep(1000).then(() => {
+//     pauseVideo();
+//     displayTitle();
+//   })
+//     .then(sleep.bind(null, 500))
+//     .then(highlightTitle)
+//     .then(sleep.bind(null, 2000))
+//     .then(resetTitle)
+// }
+
 function runPromise() {
   resetTitle();
   playVideo();
 
-  sleep(1000).then(() => {
-    pauseVideo();
-    displayTitle();
-  })
-    .then(sleep.bind(null, 500))
+  sleep(1000)
+    .then((param) => {
+      console.log(param);
+      pauseVideo();
+      displayTitle();
+      return "world";
+    })
+    .then((param) => {
+      console.log(param);
+      return sleep(5000);
+    })
     .then(highlightTitle)
     .then(sleep.bind(null, 2000))
-    .then(resetTitle)
+    .then(resetTitle);
 }
 
 async function runAsync() {
