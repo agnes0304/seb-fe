@@ -14,3 +14,23 @@ const readAllUsersChaining = () => {
 module.exports = {
   readAllUsersChaining
 }
+
+// user1.json content
+// {
+//   "name": "김코딩",
+//   "age": 26,
+//   "sex": "Male",
+//   "company": {
+//     "name": "코드스테이츠"
+//   }
+// }
+
+// user2.json content
+// {
+//   "name": "박해커",
+//   "age": 40,
+//   "sex": "Female",
+//   "company": {
+//     "name": "Anonymous"
+//   }
+// }
