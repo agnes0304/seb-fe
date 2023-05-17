@@ -5,8 +5,6 @@ function getNewsAndWeatherAll() {
     return Promise.all([newsResponse.json(), weatherResponse.json()]); // 다시 response를 json()으로. 가능한 이유? 일단 fetch해서 가지고 온 거고, 둘은 비동기 처리하는 함수니까. 
   })
   .then(([json1, json2]) => { // 결과값으로 json results를 가지고 올 수 있지만 then 내부에서 이를 사용하기 위해서 배열로 전달.
-    // let result = { news : json1.data, weather : json2 };
-    // console.log(result);
     return { news : json1.data, weather : json2 }
   })
 }
